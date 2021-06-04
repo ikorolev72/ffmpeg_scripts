@@ -8,6 +8,7 @@ Scripts :
   + header_footer_horizontal.php - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
   + header_footer_square.php - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
   + header_footer_vertical.php - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
+  + header_footer_horizontal_image2gif.php - convert images to video ( with header and footer)
 
 
 ## Installation
@@ -95,6 +96,25 @@ sudo apt-get install -y ffmpeg php
         Example: php header_footer_square.php --video http://domain/video.mp4 --header http://domain/header.png --output /path/output.mp4
 ```
 
+# header_footer_horizontal_image2gif.php
+```
+        Script create gif  from banch of images  with header and footer.
+        Usage: php header_footer_horizontal_image2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10] [--hea
+der /path/header.png] [--footer /path/footer.png]
+        where:
+    --output  path to output file
+    --dir  directory ( or url ) with images
+    --mask  mask of images. Optional. Default : '%2d.jpg'
+    --loop  play video in the loop. Optionla. Default : 1
+    --fps  input FPS ( frames per second ). Optional. Default : 5
+    --header  path ( or url ) of  header image. Optional
+    --footer  path ( or url ) of footer image. Optional
+        Example: php header_footer_horizontal_image2gif.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output output.gif
+
+        Example: php header_footer_horizontal_image2gif.php --header http://domain/header.png  --dir http://domain/path --mask %2d.jpg --loop 3 --fps 5
+ --output output.gif
+
+```
 
 ##  Bugs
 ##  ------------
