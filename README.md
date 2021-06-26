@@ -9,7 +9,7 @@ Scripts :
   + header_footer_square.php - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
   + header_footer_vertical.php - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
   + header_footer_horizontal_image2gif.php - convert images to video ( with header and footer)
-
+  + progress_bar.php - add progress bar to video
 
 ## Installation
  Require:
@@ -115,6 +115,23 @@ der /path/header.png] [--footer /path/footer.png]
  --output output.gif
 
 ```
+
+# progress_bar.php
+```
+        Usage: php progress_bar.php --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR]
+        where:
+    --output  path to output file
+    --video  path ( or url ) of input video file
+    --bgcolor HTML_COLOR. Default #FFFFFF@0.3 Optional. Please note that here can be used alpha in color ( value followed by @ ) See color descriptio
+n https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --barcolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description
+https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+
+        Example: php progress_bar.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'
+```
+
+
+
 
 ##  Bugs
 ##  ------------
