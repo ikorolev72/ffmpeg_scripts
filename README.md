@@ -10,6 +10,7 @@ Scripts :
   + header_footer_vertical.php - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
   + header_footer_horizontal_image2gif.php - convert images to video ( with header and footer)
   + progress_bar.php - add progress bar to video
+  + word_by_work.php - burn word-by-word srt subtitles to video 
 
 ## Installation
  Require:
@@ -130,6 +131,65 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
         Example: php progress_bar.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'
 ```
 
+# word_by_work.php
+```
+        Script burn the SRT subtitles 'youtube style word by word' to video.
+	Usage: php word_by_work.php --video /path/video.mp4 --output /path/output.mp4 --srt /path/subtitles.srt
+    [--oneline ]
+    [--Fontname "Arial" ]
+    [--Fontsize 24 ]
+    [--PrimaryColour "&Hffffff" ]
+    [--SecondaryColour "&Hffffff" ]
+    [--OutlineColour "&H000000" ]
+    [--BackColour "&H000000" ]
+    [--Bold ]
+    [--Italic ]
+    [--Underline ]
+    [--StrikeOut ]
+    [--ScaleX 100 ]
+    [--ScaleY 100 ]
+    [--Spacing 0 ]
+    [--Angle 0 ]
+    [--BorderStyle 4 ]
+    [--Outline 0 ]
+    [--Shadow 0 ]
+    [--Alignment 1 ]
+    [--MarginL 10 ]
+    [--MarginR 10 ]
+    [--MarginV 10 ]
+
+
+    where:
+    --output  path to output file
+    --video  source video file
+    --srt source srt subtitles
+    --oneline show subtitles in one line
+
+
+    --Fontname "Arial"  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Fontsize 24  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --PrimaryColour "&Hffffff"  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --SecondaryColour "&Hffffff"  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --OutlineColour "&H000000"  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --BackColour "&H000000"  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Bold  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Italic  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Underline  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --StrikeOut  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --ScaleX 100  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --ScaleY 100  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Spacing 0  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Angle 0  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --BorderStyle 4  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Outline 0  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Shadow 0  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --Alignment 1  - ASS optiion . 1 - left, 2- center, 3 - right
+    --MarginL 10  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --MarginR 10  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+    --MarginV 10  - ASS optiion see http://www.tcax.org/docs/ass-specs.htm Section 'Style lines, [v4 Styles] section'
+
+	Example: php word_by_work.php --video /path/video.mp4 --output /path/output.mp4 --srt /path/subtitles.srt
+```
 
 
 

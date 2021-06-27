@@ -65,10 +65,15 @@ $fps = $videoInfo['streams'][0]['r_frame_rate'];
 
     ));
 
+    $processing->writeToLog("Info: prepared ffmpeg command : $cmd");
+    if (!$processing->doExec($cmd)) {
+        $processing->writeToLog("Error: cannot execute ffmpeg command : $cmd");
+        exit(1);
+    }
 
-echo $cmd . PHP_EOL;
-system($cmd, $retCode);
-exit($retCode);
+$processing->writeToLog("Info: output video file : $output");
+$processing->writeToLog("Info: Script finished");
+exit(0);
 
 function help($msg)
 {
