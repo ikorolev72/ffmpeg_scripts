@@ -10,7 +10,9 @@ Scripts :
   + header_footer_vertical.php - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
   + header_footer_horizontal_image2gif.php - convert images to video ( with header and footer)
   + progress_bar.php - add progress bar to video
+  + progress_bar_icon.php - add progress bar with icon to video
   + word_by_work.php - burn word-by-word srt subtitles to video 
+
 
 ## Installation
  Require:
@@ -130,6 +132,25 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
 
         Example: php progress_bar.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'
 ```
+
+# progress_bar_icon.php
+```	
+	Usage: php progress_bar_icon --video /path/video.mp4  --icon /path/icon.png --output /path/output.mp4  [--barcolor HTML_COLOR] [--iconwidth ICON_WIDTH] [--smooth 3] [--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03] 
+	where:
+    --output  path to output file
+    --video  path ( or url ) of input video file
+    --icon path ( or url ) of icon png file
+    --iconwidth ICON_WIDTH . Optional. Resize icon to this width ( height will be adjust automaticaly). Default - 10% of video width. 
+    --barcolor HTML_COLOR . Optional. Default #000000 . Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --smooth smooth for output video. Optional. Default 3. good values 1-8, increase processing time!
+    --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
+    --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
+    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
+
+    
+	Example: php progress_bar_icon.php --video 3321.mp4  --output output.mp4  --barcolor 'red@0.5' --icon icon_2.png --smooth 3 --marginV 0.0 --barWidthPart 1 --barHeightPart 0.07 
+```
+
 
 # word_by_work.php
 ```

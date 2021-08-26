@@ -1,13 +1,8 @@
 <?php
 
 $marginV=0.02; // relative value for vertical bar box position ( depend of video height ). biggest value - move box above. 0 - mean bottom
-
-$barBgWidthPart=0.9; //  relative value for horizontal bar box size ( depend of video weight ).
 $barWidthPart=0.85; // relative value for horizontal bar size ( depend of video weight ).
-
-$barBgHeightPart=0.1; // relative value for vertical bar box size ( depend of video height ).
 $barHeightPart=0.03; // relative value for vertical bar size ( depend of video height ).
-
 $smooth=3; // smooth for output video, good values 1-6, increase processing time!
 
 
@@ -19,6 +14,11 @@ $longopts = array(
     "output:",
     "icon:",
     "iconwidth:",
+    "marginV:",
+    "barWidthPart:",
+    "barHeightPart:",
+    "smooth:",
+        
 );
 $options = getopt($shortopts, $longopts);
 $video = isset($options['video']) ? $options['video'] : false;
@@ -27,6 +27,12 @@ $barcolor = isset($options['barcolor']) ? $options['barcolor'] : "#000000";
 $output = isset($options['output']) ? $options['output'] : false;
 $icon = isset($options['icon']) ? $options['icon'] : false;
 $iconwidth = isset($options['iconwidth']) ? $options['iconwidth'] : false;
+
+$marginV = isset($options['marginV']) ? $options['marginV'] : $marginV;
+$barWidthPart = isset($options['barWidthPart']) ? $options['barWidthPart'] : $barWidthPart;
+$barHeightPart = isset($options['barHeightPart']) ? $options['barHeightPart'] : $barHeightPart;
+$smooth = isset($options['smooth']) ? intval( $options['smooth']) : $smooth;
+
 
 
 if (empty($video) ) {
@@ -45,19 +51,34 @@ if (empty($icon)) {
     help("Do not set option --icon");
     exit(1);
 }
+if( $smooth >8 or $smooth<1 ) {
+    help("Incorrect option value --smooth. Must be 1-8");
+    exit(1);    
+}
+if( $marginV >0.99 or $marginV<0 ) {
+    help("Incorrect option value --marginV. Must be 0-0.99");
+    exit(1);    
+}
+if( $barWidthPart >1 or $barWidthPart<0 ) {
+    help("Incorrect option value --barWidthPart. Must be 0-0.99");
+    exit(1);    
+}
+if( $barHeightPart >1 or $barHeightPart<0 ) {
+    help("Incorrect option value --barHeightPart. Must be 0-0.99");
+    exit(1);    
+}
+
+
+
 
 $processing = new Processing();
 $duration = $processing->getMediaDuration($video);
 $videoInfo=$processing->getVideoInfo($video);
 $fps = $videoInfo['streams'][0]['r_frame_rate'];
-$bgWidth = round( $videoInfo['streams'][0]['width']*$barBgWidthPart*$smooth ) ;
-$bgHeight = round( $videoInfo['streams'][0]['height']*$barBgHeightPart *$smooth) ;
 $barWidth = round( $videoInfo['streams'][0]['width']*$barWidthPart *$smooth) ;
 $barHeight = round( $videoInfo['streams'][0]['height']*$barHeightPart*$smooth ) ;
-//$marginL=(1-$barBgWidthPart)/2 ; //  relative value for horizontal bar box position ( depend of video weight ). biggest value - move box to left
-$marginL=round((1-$barBgWidthPart)/2*$smoot ); //  relative value for horizontal bar box position ( depend of video weight ). biggest value - move box to left
 $marginV=$smooth*$marginV;
-//$barHeight = 50 ;
+
 
 
 $fps = $videoInfo['streams'][0]['r_frame_rate'];
@@ -76,7 +97,6 @@ $iconwidth=round( $iconwidth*$smooth );
         "color=c=$barcolor:s=10x10:duration=${duration}:r=$fps, scale=eval=frame:h=$barHeight:w=$iconwidth+($barWidth-$iconwidth)*t/$duration, setsar=1 [bar];", 
         "[video][bar] overlay=x=(W-$barWidth)/2:y=H-h-H*$marginV [bg_box_progress];",
         "[bg_box_progress][icon] overlay=x=(W-$barWidth)/2+($barWidth-$iconwidth)*t/$duration:y=H-h-H*$marginV-$barHeight, scale=iw/$smooth:h=-2\"",
-        //"[bg_box_progress][icon] overlay=x=(W-$barWidth)/2+($barWidth-w)*t/$duration:y=H-h-H*$marginV-$barHeight\"",
         "-map 0:a? -c:a aac -ac 2 -ar 44100 -b:a 128k",
         "-crf 18 -preset veryfast -c:v h264 -g " . round(2 * $fps) . " -keyint_min " . round(2 * $fps) ,
         "-r $fps",
@@ -100,16 +120,21 @@ function help($msg)
     $date = date("Y-m-d H:i:s");
     $message =
         "$msg
-	Usage: php $script --video /path/video.mp4  --icon /path/icon.png --output /path/output.mp4  [--barcolor HTML_COLOR] [--iconwidth ICON_WIDTH]
+	Usage: php $script --video /path/video.mp4  --icon /path/icon.png --output /path/output.mp4  [--barcolor HTML_COLOR] [--iconwidth ICON_WIDTH] [--smooth 3] [--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03] 
 	where:
     --output  path to output file
     --video  path ( or url ) of input video file
     --icon path ( or url ) of icon png file
     --iconwidth ICON_WIDTH . Optional. Resize icon to this width ( height will be adjust automaticaly). Default - 10% of video width. 
     --barcolor HTML_COLOR . Optional. Default #000000 . Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --smooth smooth for output video. Optional. Default 3. good values 1-8, increase processing time!
+    --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
+    --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
+    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
+
 
     
-	Example: php $script --video /path/video.mp4 --output /path/output.mp4  --barcolor 'red@0.5' --icon icon_2.png";
+	Example: php $script --video 3321.mp4  --output output.mp4  --barcolor 'red@0.5' --icon icon_2.png --smooth 3 --marginV 0.0 --barWidthPart 1 --barHeightPart 0.07 ";
     $stderr = fopen('php://stderr', 'w');
     fwrite($stderr, "$date   $message" . PHP_EOL);
     fclose($stderr);
