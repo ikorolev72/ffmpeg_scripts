@@ -1,7 +1,7 @@
 <?php
 
-$width = 1600; // scale video to this width
-$height = 900; // scale video to this height
+$width = 1280; // scale video to this width
+$height = 720; // scale video to this height
 
 $output_width = 1920; // output size
 $output_height = 1080; // output size
