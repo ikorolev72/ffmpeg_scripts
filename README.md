@@ -3,15 +3,17 @@
 ## Several script for adding top, botom ( or both ) image, encode several images into video or gif. As video/image sources can be used local files or URLs
 
 Scripts :
-  + image2video.php - convert images to video
-  + img2gif.php - convert images to video 
-  + header_footer_horizontal.php - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
-  + header_footer_square.php - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
-  + header_footer_vertical.php - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
-  + header_footer_horizontal_image2gif.php - convert images to video ( with header and footer)
-  + progress_bar.php - add progress bar to video
-  + progress_bar_icon.php - add progress bar with icon to video
-  + word_by_work.php - burn word-by-word srt subtitles to video 
+[Update task](##update-task)
+  + [image2video.php](#image2video.php) - convert images to video
+  + [img2gif.php](#img2gif.php) - convert images to video 
+  + [header_footer_horizontal.php](#header_footer_horizontal.php) - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
+  + [header_footer_square.php](#header_footer_square.php) - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
+  + [header_footer_vertical.php](#header_footer_vertical.php) - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
+  + [header_footer_horizontal_image2gif.php](#header_footer_horizontal_image2gif.php) - convert images to video ( with header and footer)
+  + [progress_bar.php](#progress_bar.php) - add progress bar to video
+  + [progress_bar_icon.php](#progress_bar_icon.php) - add progress bar with icon to video
+  + [word_by_work.php](#word_by_work.php) - burn word-by-word srt subtitles to video
+  + [mix_video_audio.php](#mix_video_audio.php) - mix audio stream (or two streams) with video 
 
 
 ## Installation
@@ -212,6 +214,21 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
 	Example: php word_by_work.php --video /path/video.mp4 --output /path/output.mp4 --srt /path/subtitles.srt
 ```
 
+# mix_video_audio.php
+```
+	Usage: php mix_video_audio.php --video /path/video.mp4   --output /path/output.mp4 {[--audio /path/audio.mp3] | [--speech /path/speech.mp3]} [--audio_volume 0.3][--speech_volume 1][--duration 10]
+	where:
+    --output  path to output file
+    --video  path ( or url ) of input video file. Required
+    --audio  path ( or url ) of input audio file. Must be set one : audio or speech 
+    --speech  path ( or url ) of input speech audio file. Must be set one : audio or speech 
+    --audio_volume  volume of audio ( for background music good value will be 0.2-05 ). Optional. Default: 0.3
+    --speech_volume  volume of speech ( for speech good value will be 1 ). Optional. Default: 1
+    --duration  duration of output video. Option. If ommited, then used duration of video file
+
+
+	Example: php mix_video_audio.php --video /path/video.mp4 --audio /path/audio.mp3 --speech /path/speech.mp3 --audio_volume 0.3 --speech_volume 1 --duration 10 --output /path/output.mp4
+```
 
 
 ##  Bugs
