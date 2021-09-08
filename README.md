@@ -12,6 +12,7 @@ Scripts :
   + [header_footer_horizontal_image2gif.php](#header_footer_horizontal_image2gif) - convert images to video ( with header and footer)
   + [progress_bar.php](#progress_bar) - add progress bar to video
   + [progress_bar_icon.php](#progress_bar_icon) - add progress bar with icon to video
+  + [progress_bar_waveform.php](#progress_bar_icon) - add progress bar with waveform to video
   + [word_by_work.php](#word_by_work) - burn word-by-word srt subtitles to video
   + [mix_video_audio.php](#mix_video_audio) - mix audio stream (or two streams) with video 
 
@@ -153,6 +154,23 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
 	Example: php progress_bar_icon.php --video 3321.mp4  --output output.mp4  --barcolor 'red@0.5' --icon icon_2.png --smooth 3 --marginV 0.0 --barWidthPart 1 --barHeightPart 0.07 
 ```
 
+### progress_bar_waveform
+```
+	Usage: php progress_bar_waveform.php --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR] [--wavecolor HTML_COLOR][--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03][--barBgWidthPart 0.9] [--barHeightPart 0.1]  
+	where:
+    --output  path to output file
+    --video  path ( or url ) of input video file
+    --bgcolor HTML_COLOR. Default #FFFFFF@0.3 Optional. Please note that here can be used alpha in color ( value followed by @ ) See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --barcolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --wavecolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
+    --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
+    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
+    --barBgWidthPart  relative value for horizontal bar box size ( depend of video weight ). Optional, Default 0.9
+    --barHeightPart relative value for vertical bar box size ( depend of video height ). Optional, Default 0.1
+
+	Example: php progress_bar_waveform.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5' --wavecolor '#000000'
+```
 
 ### word_by_work
 ```
@@ -230,6 +248,7 @@ Script mix one or two audio streams ( options --audio --speech ) and concat with
 
 	Example: php mix_video_audio.php --video /path/video.mp4 --audio /path/audio.mp3 --speech /path/speech.mp3 --audio_volume 0.3 --speech_volume 1 --duration 10 --output /path/output.mp4
 ```
+
 
 
 ##  Bugs
