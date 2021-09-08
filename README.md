@@ -3,7 +3,7 @@
 ## Several script for adding top, botom ( or both ) image, encode several images into video or gif. As video/image sources can be used local files or URLs
 
 Scripts :
-[Update task](##update-task)
+
   + [image2video.php](#image2video) - convert images to video
   + [img2gif.php](#img2gif) - convert images to video 
   + [header_footer_horizontal.php](#header_footer_horizontal) - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
