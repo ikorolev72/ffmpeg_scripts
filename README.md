@@ -4,16 +4,16 @@
 
 Scripts :
 [Update task](##update-task)
-  + [image2video.php](#image2video.php) - convert images to video
-  + [img2gif.php](#img2gif.php) - convert images to video 
-  + [header_footer_horizontal.php](#header_footer_horizontal.php) - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
-  + [header_footer_square.php](#header_footer_square.php) - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
-  + [header_footer_vertical.php](#header_footer_vertical.php) - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
-  + [header_footer_horizontal_image2gif.php](#header_footer_horizontal_image2gif.php) - convert images to video ( with header and footer)
-  + [progress_bar.php](#progress_bar.php) - add progress bar to video
-  + [progress_bar_icon.php](#progress_bar_icon.php) - add progress bar with icon to video
-  + [word_by_work.php](#word_by_work.php) - burn word-by-word srt subtitles to video
-  + [mix_video_audio.php](#mix_video_audio.php) - mix audio stream (or two streams) with video 
+  + [image2video.php](#image2video] - convert images to video
+  + [img2gif.php](#img2gif] - convert images to video 
+  + [header_footer_horizontal.php](#header_footer_horizontal] - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
+  + [header_footer_square.php](#header_footer_square] - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
+  + [header_footer_vertical.php](#header_footer_vertical] - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
+  + [header_footer_horizontal_image2gif.php](#header_footer_horizontal_image2gif] - convert images to video ( with header and footer)
+  + [progress_bar.php](#progress_bar] - add progress bar to video
+  + [progress_bar_icon.php](#progress_bar_icon] - add progress bar with icon to video
+  + [word_by_work.php](#word_by_work] - burn word-by-word srt subtitles to video
+  + [mix_video_audio.php](#mix_video_audio] - mix audio stream (or two streams) with video 
 
 
 ## Installation
@@ -27,7 +27,7 @@ sudo apt-get install -y ffmpeg php
 
 ## Usage
 
-### image2video.php
+### image2video
 ```
         Script create video from banch of images.
         Usage: php image2video.php --dir /path/images --output /path/output.mp4 [--mask img%3d.png] [--loop 2] [--fps 10]
@@ -42,7 +42,7 @@ sudo apt-get install -y ffmpeg php
         Example: php image2video.php --dir http://domain/path  --mask %2d.jpg --loop 3 --fps 12 --output 2.mp4
 ```
 
-### img2gif.php
+### img2gif
 ```
         Script create gif  from banch of images.
         Usage: php img2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10]
@@ -58,7 +58,7 @@ sudo apt-get install -y ffmpeg php
 ```
 
 
-### header_footer_horizontal.php
+### header_footer_horizontal
 ```
         Usage: php header_footer_horizontal.php --video /path/video.mp4   --output /path/output.mp4 [--header /path header.png] [--footer /path/footer.png]
         where:
@@ -73,7 +73,7 @@ sudo apt-get install -y ffmpeg php
 
 
 
-### header_footer_vertical.php
+### header_footer_vertical
 ```
         Usage: php header_footer_vertical.php --video /path/video.mp4   --output /path/output.mp4 [--header /path/header.png] [--footer /path/footer.png]
         where:
@@ -88,7 +88,7 @@ sudo apt-get install -y ffmpeg php
 
 
 
-### header_footer_square.php
+### header_footer_square
 ```
         Usage: php header_footer_square.php --video /path/video.mp4   --output /path/output.mp4 [--header /path/header.png] [--footer /path/footer.png]
         where:
@@ -101,7 +101,7 @@ sudo apt-get install -y ffmpeg php
         Example: php header_footer_square.php --video http://domain/video.mp4 --header http://domain/header.png --output /path/output.mp4
 ```
 
-# header_footer_horizontal_image2gif.php
+### header_footer_horizontal_image2gif
 ```
         Script create gif  from banch of images  with header and footer.
         Usage: php header_footer_horizontal_image2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10] [--hea
@@ -121,7 +121,7 @@ der /path/header.png] [--footer /path/footer.png]
 
 ```
 
-# progress_bar.php
+### progress_bar
 ```
         Usage: php progress_bar.php --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR]
         where:
@@ -135,7 +135,7 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
         Example: php progress_bar.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'
 ```
 
-# progress_bar_icon.php
+### progress_bar_icon
 ```	
 	Usage: php progress_bar_icon --video /path/video.mp4  --icon /path/icon.png --output /path/output.mp4  [--barcolor HTML_COLOR] [--iconwidth ICON_WIDTH] [--smooth 3] [--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03] 
 	where:
@@ -154,7 +154,7 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
 ```
 
 
-# word_by_work.php
+### word_by_work
 ```
         Script burn the SRT subtitles 'youtube style word by word' to video.
 	Usage: php word_by_work.php --video /path/video.mp4 --output /path/output.mp4 --srt /path/subtitles.srt
@@ -214,8 +214,9 @@ https://ffmpeg.org/ffmpeg-utils.html#color-syntax
 	Example: php word_by_work.php --video /path/video.mp4 --output /path/output.mp4 --srt /path/subtitles.srt
 ```
 
-# mix_video_audio.php
+### mix_video_audio
 ```
+Script mix one or two audio streams ( options --audio --speech ) and concat with video. If option --duration is longest than video, then video will be palying in the loop.
 	Usage: php mix_video_audio.php --video /path/video.mp4   --output /path/output.mp4 {[--audio /path/audio.mp3] | [--speech /path/speech.mp3]} [--audio_volume 0.3][--speech_volume 1][--duration 10]
 	where:
     --output  path to output file
