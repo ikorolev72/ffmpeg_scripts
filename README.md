@@ -4,16 +4,16 @@
 
 Scripts :
 [Update task](##update-task)
-  + [image2video.php](#image2video] - convert images to video
-  + [img2gif.php](#img2gif] - convert images to video 
-  + [header_footer_horizontal.php](#header_footer_horizontal] - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
-  + [header_footer_square.php](#header_footer_square] - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
-  + [header_footer_vertical.php](#header_footer_vertical] - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
-  + [header_footer_horizontal_image2gif.php](#header_footer_horizontal_image2gif] - convert images to video ( with header and footer)
-  + [progress_bar.php](#progress_bar] - add progress bar to video
-  + [progress_bar_icon.php](#progress_bar_icon] - add progress bar with icon to video
-  + [word_by_work.php](#word_by_work] - burn word-by-word srt subtitles to video
-  + [mix_video_audio.php](#mix_video_audio] - mix audio stream (or two streams) with video 
+  + [image2video.php](#image2video) - convert images to video
+  + [img2gif.php](#img2gif) - convert images to video 
+  + [header_footer_horizontal.php](#header_footer_horizontal) - convert video to horizontal and add top, bottom or both images to video. If ommited header and footer images, then video converted to horizontal video.
+  + [header_footer_square.php](#header_footer_square) - convert video to square and add top, bottom or both images to video. If ommited header and footer images, then video converted to square video.
+  + [header_footer_vertical.php](#header_footer_vertical) - convert video to vertical and add top, bottom or both images to video. If ommited header and footer images, then video converted to vertical video.
+  + [header_footer_horizontal_image2gif.php](#header_footer_horizontal_image2gif) - convert images to video ( with header and footer)
+  + [progress_bar.php](#progress_bar) - add progress bar to video
+  + [progress_bar_icon.php](#progress_bar_icon) - add progress bar with icon to video
+  + [word_by_work.php](#word_by_work) - burn word-by-word srt subtitles to video
+  + [mix_video_audio.php](#mix_video_audio) - mix audio stream (or two streams) with video 
 
 
 ## Installation
