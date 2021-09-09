@@ -136,7 +136,7 @@ class Processing
         $loopOption,
         "-r $fps",
         "-i \"$dir/$mask\"",
-        "-vf scale=w=iw:h=-2,setsar=1"    ,
+        "-vf scale=w=iw:h=-2,scale=w=-2:h=ih,setsar=1"    ,
         "-an",        
         "-r ".$this->fps,
         "-c:v h264 -preset veryfast -crf 17 -pix_fmt yuv420p",
