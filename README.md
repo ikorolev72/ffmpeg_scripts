@@ -15,6 +15,7 @@ Scripts :
   + [progress_bar_waveform.php](#progress_bar_icon) - add progress bar with waveform to video
   + [word_by_work.php](#word_by_work) - burn word-by-word srt subtitles to video
   + [mix_video_audio.php](#mix_video_audio) - mix audio stream (or two streams) with video 
+  + [resize_video.php](#resize_video) - resize video to vertical (9/16), square(1/1) or horizontal(16/9)
 
 
 ## Installation
@@ -247,6 +248,22 @@ Script mix one or two audio streams ( options --audio --speech ) and concat with
 
 
 	Example: php mix_video_audio.php --video /path/video.mp4 --audio /path/audio.mp3 --speech /path/speech.mp3 --audio_volume 0.3 --speech_volume 1 --duration 10 --output /path/output.mp4
+```
+
+### resize_video
+```
+	Usage: php resize_video.php --video /path/video.mp4   --output /path/output.mp4 [--orientation vertical|square|horizontal] [--fix blur|crop|direct|pad] [--height HEIGTH]
+	where:
+    --output  path to output file
+    --video  path ( or url ) of input video file
+    --orientation   output video orientation : vertical (9/16), square(1/1) or horizontal(16/9). Optional. Default: horizontal
+    --fix   How to fix output aspect ratio : blur, crop, direct, pad . Direct mean 'not respecting the aspect ratio'.  Optional. Default: pad
+    --height   output height. Width will be calculated automatically. Optional. Default: 720
+
+
+	Example: php resize_video.php --video VIDEO.mp4 --height 360 --orientation horizontal --output 360p_1.mp4 --fix crop
+	Example: php resize_video.php --video VIDEO.mp4 --height 360 --orientation vertical --output 360p_2.mp4 --fix blur
+	Example: php resize_video.php --video VIDEO.mp4 --height 360 --orientation square --output 360p_3.mp4 --fix pad 
 ```
 
 
