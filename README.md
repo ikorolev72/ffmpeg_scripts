@@ -16,6 +16,7 @@ Scripts :
   + [word_by_work.php](#word_by_work) - burn word-by-word srt subtitles to video
   + [mix_video_audio.php](#mix_video_audio) - mix audio stream (or two streams) with video 
   + [resize_video.php](#resize_video) - resize video to vertical (9/16), square(1/1) or horizontal(16/9)
+  + [watermark.php](#watermark) - add watermark overlay image to video
 
 
 ## Installation
@@ -266,6 +267,22 @@ Script mix one or two audio streams ( options --audio --speech ) and concat with
 	Example: php resize_video.php --video VIDEO.mp4 --height 360 --orientation square --output 360p_3.mp4 --fix pad 
 ```
 
+### watermark
+```
+	Usage: php watermark.php --video /path/video.mp4  --image /path/image.png --output /path/output.mp4 [--alignment  top_left|top_right|bottom_left|bottom_right] [--imageV 0.1] [--marginV 0.04] [--marginH 0.04]
+	where:
+    --output  path to output file
+    --video  path ( or url ) of input video file
+    --image  path ( or url ) of overlay image
+    --alignment    image alignment  : top_left, top_right, bottom_left, bottom_right. Optional. Default: top_left
+    --imageV   relative value for resize image . eg 0.1 mean - resize to 0.1*video_height, for 1080p - overlay image height will be 108.  Optional. Default: 0.1
+    --marginV relative value for vertical image margin  ( depend of video height ). Optional. Default: 0.04
+    --marginH relative value for horizontal image margin  ( depend of video width ). Optional. Default: 0.04
+
+	Example: 
+    php watermark.php --video VIDEO.mp4 --output overlay.mp4 --image logo.png
+    php watermark.php --video green1.MOV --output 1.mp4 --image logo.png --alignment bottom_left --imageV 0.2 --marginH 0.01    
+```    
 
 
 ##  Bugs
