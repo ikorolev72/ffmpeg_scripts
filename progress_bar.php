@@ -147,5 +147,39 @@ class Processing
         $out = json_decode($json, true);
         return ($out);
     }
+
+    public function writeToLog($message)
+    {
+        #echo "$message\n";
+        $timeZone = date_default_timezone_get();
+        date_default_timezone_set("UTC");
+        $date = date("Y-m-d H:i:s");
+        date_default_timezone_set($timeZone);
+        $stderr = fopen('php://stderr', 'w');
+        fwrite($stderr, "$date   $message" . PHP_EOL);
+        fclose($stderr);
+
+        if (!empty($this->log)) {
+            file_put_contents($this->log, "$date   $message" . PHP_EOL, FILE_APPEND | LOCK_EX);
+        }
+    }    
+    /**
+     * doExec
+     * @param    string    $Command
+     * @return integer 0-error, 1-success
+     */
+    public function doExec($Command)
+    {
+        if ($this->debug) {
+            print $Command . PHP_EOL;
+            //return 1;
+        }
+        system($Command, $execResult);        
+        if ($execResult) {
+            return 0;
+        }
+        return 1;
+    } 
+    
     
 }
