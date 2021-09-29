@@ -202,5 +202,23 @@ class Processing
         $out = json_decode($json, true);
         return ($out);
     }
+    /**
+     * time2float
+     * this function translate time in format 00:00:00.00 to seconds
+     *
+     * @param    string $t
+     * @return    float
+     */
+    public function time2float($t)
+    {
+        $matches = preg_split("/:/", $t, 3);
+        if (array_key_exists(2, $matches)) {
+            list($h, $m, $s) = $matches;
+            return ($s + 60 * $m + 3600 * $h);
+        }
+        $h = 0;
+        list($m, $s) = $matches;
+        return ($s + 60 * $m);
+    }
     
 }

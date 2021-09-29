@@ -24,3 +24,9 @@ vendor/*
 composer.*
 data/token.json
 data/config.json
+*.mov
+*.gif
+*.mp4
+*.png
+*.jpg
+*.json
