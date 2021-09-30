@@ -126,16 +126,20 @@ der /path/header.png] [--footer /path/footer.png]
 
 ### progress_bar
 ```
-        Usage: php progress_bar.php --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR]
-        where:
+	Usage: php progress_bar.php --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR][--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03][--barBgWidthPart 0.9] [--barHeightPart 0.1]  
+	where:
     --output  path to output file
     --video  path ( or url ) of input video file
-    --bgcolor HTML_COLOR. Default #FFFFFF@0.3 Optional. Please note that here can be used alpha in color ( value followed by @ ) See color descriptio
-n https://ffmpeg.org/ffmpeg-utils.html#color-syntax
-    --barcolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description
-https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --bgcolor HTML_COLOR. Default #FFFFFF@0.3 Optional. Please note that here can be used alpha in color ( value followed by @ ) See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --barcolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
+    --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
+    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
+    --barBgWidthPart  relative value for horizontal bar box size ( depend of video weight ). Optional, Default 0.9
+    --barBgHeightPart relative value for vertical bar box size ( depend of video height ). Optional, Default 0.1
 
-        Example: php progress_bar.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'
+	Example: php progress_bar.php --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'
+
 ```
 
 ### progress_bar_icon

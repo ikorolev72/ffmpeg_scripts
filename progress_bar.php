@@ -17,12 +17,25 @@ $longopts = array(
     "bgcolor:",
     "barcolor:",
     "output:",
+    "marginV:",
+    "barWidthPart:",
+    "barHeightPart:",   
+    "barBgWidthPart:",
+    "barBgHeightPart:",    
 );
 $options = getopt($shortopts, $longopts);
 $video = isset($options['video']) ? $options['video'] : false;
 $bgcolor = isset($options['bgcolor']) ? $options['bgcolor'] : "#FFFFFF@0.7";
 $barcolor = isset($options['barcolor']) ? $options['barcolor'] : "#000000";
 $output = isset($options['output']) ? $options['output'] : false;
+
+$marginV = isset($options['marginV']) ? $options['marginV'] : $marginV;
+$barWidthPart = isset($options['barWidthPart']) ? $options['barWidthPart'] : $barWidthPart;
+$barHeightPart = isset($options['barHeightPart']) ? $options['barHeightPart'] : $barHeightPart;
+$barBgWidthPart = isset($options['barBgWidthPart']) ? $options['barBgWidthPart'] : $barBgWidthPart;
+$barBgHeightPart = isset($options['barBgHeightPart']) ? $options['barBgHeightPart'] : $barBgHeightPart;
+
+
 
 if (empty($video) ) {
     help("Do not set option --video");
@@ -81,12 +94,17 @@ function help($msg)
     $date = date("Y-m-d H:i:s");
     $message =
         "$msg
-	Usage: php $script --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR]
+	Usage: php $script --video /path/video.mp4   --output /path/output.mp4 [--bgcolor HTML_COLOR] [--barcolor HTML_COLOR][--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03][--barBgWidthPart 0.9] [--barHeightPart 0.1]  
 	where:
     --output  path to output file
     --video  path ( or url ) of input video file
     --bgcolor HTML_COLOR. Default #FFFFFF@0.3 Optional. Please note that here can be used alpha in color ( value followed by @ ) See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
     --barcolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
+    --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
+    --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
+    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
+    --barBgWidthPart  relative value for horizontal bar box size ( depend of video weight ). Optional, Default 0.9
+    --barBgHeightPart relative value for vertical bar box size ( depend of video height ). Optional, Default 0.1
 
 	Example: php $script --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5'";
     $stderr = fopen('php://stderr', 'w');
