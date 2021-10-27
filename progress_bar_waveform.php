@@ -73,6 +73,7 @@ $marginL=(1-$barBgWidthPart)/2 ; //  relative value for horizontal bar box posit
 
 
 $fps = $videoInfo['streams'][0]['r_frame_rate'];
+$fps = eval( "return round($fps,3);") ;
 /*
     $bgWidth=$bgWidth*$smooth;
     $bgHeight=$bgHeight*$smooth;
@@ -122,9 +123,9 @@ function help($msg)
     --wavecolor HTML_COLOR. Default #000000 Optional. Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
     --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
     --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
-    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
+    --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.08
     --barBgWidthPart  relative value for horizontal bar box size ( depend of video weight ). Optional, Default 0.9
-    --barHeightPart relative value for vertical bar box size ( depend of video height ). Optional, Default 0.1
+    --barBgHeightPart relative value for vertical bar box size ( depend of video height ). Optional, Default 0.1
 
 	Example: php $script --video /path/video.mp4 --output /path/output.mp4  --bgcolor '#FFFFFF@0.9' --barcolor 'red@0.5' --wavecolor '#000000'";
     $stderr = fopen('php://stderr', 'w');

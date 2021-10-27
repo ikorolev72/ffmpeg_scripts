@@ -144,20 +144,22 @@ der /path/header.png] [--footer /path/footer.png]
 
 ### progress_bar_icon
 ```	
-	Usage: php progress_bar_icon --video /path/video.mp4  --icon /path/icon.png --output /path/output.mp4  [--barcolor HTML_COLOR] [--iconwidth ICON_WIDTH] [--smooth 3] [--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03] 
+	Usage: php progress_bar_icon --video /path/video.mp4  --icon /path/icon.png --output /path/output.mp4  [--barcolor HTML_COLOR] [--iconwidth ICON_WIDTH] [--smooth 3] [--marginV 0.02] [--barWidthPart 0.85] [--barHeightPart 0.03] [--barBgWidthPart 0.9] [--barBgHeightPart 0.1][--bgcolor HTML_COLOR]
 	where:
     --output  path to output file
     --video  path ( or url ) of input video file
     --icon path ( or url ) of icon png file
     --iconwidth ICON_WIDTH . Optional. Resize icon to this width ( height will be adjust automaticaly). Default - 10% of video width. 
+    --bgcolor HTML_COLOR. Default #FFFFFF@0.3 Optional. Please note that here can be used alpha in color ( value followed by @ ) See color description https://ffmpeg.org/    
     --barcolor HTML_COLOR . Optional. Default #000000 . Please note that here can be used alpha in color ( value followed by @ ). See color description https://ffmpeg.org/ffmpeg-utils.html#color-syntax
     --smooth smooth for output video. Optional. Default 3. good values 1-8, increase processing time!
     --marginV relative value for vertical bar box position ( depend of video height ). Optional. Default 0.02. biggest value - move box above. 0 - mean bottom
     --barWidthPart relative value for horizontal bar size ( depend of video weight ). Optional, Default 0.85
     --barHeightPart relative value for vertical bar size ( depend of video height ). Optional, Default 0.03
-
+    --barBgWidthPart  relative value for horizontal bar box size ( depend of video weight ). Optional, Default 0.9
+    --barBgHeightPart relative value for vertical bar box size ( depend of video height ). Optional, Default 0.1
     
-	Example: php progress_bar_icon.php --video 3321.mp4  --output output.mp4  --barcolor 'red@0.5' --icon icon_2.png --smooth 3 --marginV 0.0 --barWidthPart 1 --barHeightPart 0.07 
+	Example: php progress_bar_icon.php --video 3321.mp4  --output output.mp4  --barcolor 'red@0.5' --bgcolor 'A12345@0.5' --icon icon_2.png --smooth 3 --marginV 0.0 --barWidthPart 1 --barHeightPart 0.07 --barBgWidthPart 0.85 --barBgHeightPart 0.05 ";
 ```
 
 ### progress_bar_waveform
