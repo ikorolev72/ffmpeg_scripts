@@ -37,7 +37,8 @@ $duration = $processing->getMediaDuration($video);
 
 if ($header and !$footer) {
 
-    $image_height = $output_height - $height;
+    //$image_height = $output_height - $height;
+    $image_height = round(($output_height - $height) / 2);
     $cmd = join(" ", array(
         "ffmpeg -y  -probesize 100M -analyzeduration 50M",
         "-i \"$video\" -ss 0 -t $duration",
@@ -58,7 +59,8 @@ if ($header and !$footer) {
 }
 
 if (!$header and $footer) {
-    $image_height = $output_height - $height;
+    $image_height = round(($output_height - $height) / 2);
+    //$image_height = $output_height - $height;
     $cmd = join(" ", array(
         "ffmpeg -y  -probesize 100M -analyzeduration 50M",
         "-i \"$video\" -ss 0 -t $duration",
@@ -68,8 +70,8 @@ if (!$header and $footer) {
         "[0:v] scale=w=max(iw*${height}/ih\,${width}):h=max(${height}\,ih*${width}/iw), setsar=1, crop=w=${width}:h=${height}, setsar=1 [v0];",
         //"[1:v] scale=w=$width:h=${image_height} [v1];",
         "[1:v] scale=w=max(iw*${image_height}/ih\,${width}):h=max(${image_height}\,ih*${width}/iw), setsar=1, crop=w=${width}:h=${image_height}, setsar=1 [v1];",
-        "[bg][v0] overlay=x=0:y=0 [bg_v0];",
-        "[bg_v0][v1] overlay=x=0:y=${height} [v]\"",
+        "[bg][v0] overlay=x=0:y=(H-h)/2 [bg_v0];",
+        "[bg_v0][v1] overlay=x=0:y=H-h [v]\"",
         "-map \"[v]\" -c:v h264 -preset veryfast -crf 18",
         "-map 0:a? -c:a aac -ac 2 -ar 44100 -b:a 128k",
         "-r $fps",

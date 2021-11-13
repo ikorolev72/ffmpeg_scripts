@@ -47,8 +47,8 @@ $tmpFile = $output . time() . ".gif";
 $tmpFileMp4 = $output . time() . ".mp4";
 
 if ($header and !$footer) {
-
-    $image_height = $output_height - $height;
+    $image_height = round(($output_height - $height) / 2);    
+    //$image_height = $output_height - $height;
 
     $cmd = $processing->prepareImagesToGif($dir, $mask, $fps, $loop, $tmpFile);
     $processing->writeToLog("Info: prepared ffmpeg command : $cmd");
@@ -113,7 +113,8 @@ if ($header and !$footer) {
 }
 
 if (!$header and $footer) {
-    $image_height = $output_height - $height;
+    $image_height = round(($output_height - $height) / 2);    
+    //$image_height = $output_height - $height;
     $cmd = $processing->prepareImagesToGif($dir, $mask, $fps, $loop, $tmpFile);
     $processing->writeToLog("Info: prepared ffmpeg command : $cmd");
     if (!$processing->doExec($cmd)) {
@@ -136,8 +137,8 @@ if (!$header and $footer) {
         "[video0-2] scale=w=max(iw*${height}/ih\,${width}):h=max(${height}\,ih*${width}/iw), setsar=1, crop=w=${width}:h=${height}, setsar=1 [video0-2-scaled];",
         "[bg0][video0-2-scaled] overlay=x=(W-w)/2:y=(H-h)/2 [v0];",
         "[1:v] scale=w=max(iw*${image_height}/ih\,${output_width}):h=max(${image_height}\,ih*${output_width}/iw), setsar=1, crop=w=${output_width}:h=${image_height}, setsar=1 [v1];",
-        "[bg][v0] overlay=x=0:y=0 [bg_v0];",
-        "[bg_v0][v1] overlay=x=0:y=${height} [v]\"",
+        "[bg][v0] overlay=x=0:y=(H-h)/2 [bg_v0];",
+        "[bg_v0][v1] overlay=x=0:y=H-h [v]\"",
         "-map \"[v]\" -c:v h264 -preset veryfast -crf 18",
         "-an",
         "-r $fps",

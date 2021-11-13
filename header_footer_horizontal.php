@@ -35,14 +35,11 @@ if (empty($output)) {
 $processing = new Processing();
 $duration = $processing->getMediaDuration($video);
 
-//[video0-1] scale=w=1280:h=720,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1, setsar=1  [bg0];
-//[video0-2] scale=w=min( iw\, min(iw*720/ih\,1280)):h=min( ih\, min(720\,ih*1280/iw)), setsar=1 [video0-2-scaled];
-//[bg0][video0-2-scaled] overlay=x=(W-w)/2:y=(H-h)/2 [video0];
-
 
 if ($header and !$footer) {
 
-    $image_height = $output_height - $height;
+    //$image_height = $output_height - $height;
+    $image_height = round(($output_height - $height) / 2);    
     $cmd = join(" ", array(
         "ffmpeg -y  -probesize 100M -analyzeduration 50M",
         "-i \"$video\" -ss 0 -t $duration",
@@ -52,7 +49,7 @@ if ($header and !$footer) {
         "[0:v] split=2 [video0-1][video0-2];", 
         "[video0-1] scale=w=${output_width}:h=${height},boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1, setsar=1  [bg0];",
         "[video0-2] scale=w=max(iw*${height}/ih\,${width}):h=max(${height}\,ih*${width}/iw), setsar=1, crop=w=${width}:h=${height}, setsar=1 [video0-2-scaled];",
-        "[bg0][video0-2-scaled] overlay=x=(W-w)/2:y=(H-h)/2 [v0];",
+        "[bg0][video0-2-scaled] overlay=x=(W-w)/2:y=(H-h)/2 [v0];",        
         "[1:v] scale=w=max(iw*${image_height}/ih\,${output_width}):h=max(${image_height}\,ih*${output_width}/iw), setsar=1, crop=w=${output_width}:h=${image_height}, setsar=1 [v1];",
         "[bg][v0] overlay=x=0:y=${image_height} [bg_v0];",
         "[bg_v0][v1] overlay=x=0:y=0 [v]\"",
@@ -65,7 +62,8 @@ if ($header and !$footer) {
 }
 
 if (!$header and $footer) {
-    $image_height = $output_height - $height;
+    //$image_height = $output_height - $height;
+    $image_height = round(($output_height - $height) / 2);    
     $cmd = join(" ", array(
         "ffmpeg -y  -probesize 100M -analyzeduration 50M",
         "-i \"$video\" -ss 0 -t $duration",
@@ -76,9 +74,9 @@ if (!$header and $footer) {
         "[video0-1] scale=w=${output_width}:h=${height},boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1, setsar=1  [bg0];",
         "[video0-2] scale=w=max(iw*${height}/ih\,${width}):h=max(${height}\,ih*${width}/iw), setsar=1, crop=w=${width}:h=${height}, setsar=1 [video0-2-scaled];",
         "[bg0][video0-2-scaled] overlay=x=(W-w)/2:y=(H-h)/2 [v0];",
-        "[1:v] scale=w=max(iw*${image_height}/ih\,${output_width}):h=max(${image_height}\,ih*${output_width}/iw), setsar=1, crop=w=${output_width}:h=${image_height}, setsar=1 [v1];",
-        "[bg][v0] overlay=x=0:y=0 [bg_v0];",
-        "[bg_v0][v1] overlay=x=0:y=${height} [v]\"",
+        "[1:v] scale=w=max(iw*${image_height}/ih\,${output_width}):h=max(${image_height}\,ih*${output_width}/iw), setsar=1, crop=w=${output_width}:h=${image_height}, setsar=1 [v1];",        
+        "[bg][v0] overlay=x=0:y=(H-h)/2 [bg_v0];",
+        "[bg_v0][v1] overlay=x=0:y=H-h [v]\"",
         "-map \"[v]\" -c:v h264 -preset veryfast -crf 18",
         "-map 0:a? -c:a aac -ac 2 -ar 44100 -b:a 128k",
         "-r $fps",
