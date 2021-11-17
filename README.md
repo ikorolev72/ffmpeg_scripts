@@ -17,12 +17,13 @@ Scripts :
   + [mix_video_audio.php](#mix_video_audio) - mix audio stream (or two streams) with video 
   + [resize_video.php](#resize_video) - resize video to vertical (9/16), square(1/1) or horizontal(16/9)
   + [watermark.php](#watermark) - add watermark overlay image to video
+  + [intro_outro_videos.php](#intro_outro_videos) - stitch main video with intro and outro files
 
 
 ## Installation
  Require:
   + php 7
-  + ffmpeg 4
+  + ffmpeg 4.4
 
 ```
 sudo apt-get install -y ffmpeg php
@@ -33,31 +34,40 @@ sudo apt-get install -y ffmpeg php
 ### image2video
 ```
         Script create video from banch of images.
-        Usage: php image2video.php --dir /path/images --output /path/output.mp4 [--mask img%3d.png] [--loop 2] [--fps 10]
-        where:
+	Usage: php image2video.php --dir /path/images --output /path/output.mp4 [--mask img%3d.png] [--loop 2] [--fps 10] [{--bgcolor #000000}|{--bgimage /path/bgimage.jpg}]
+	where:
     --output  path to output file
     --dir  directory ( or url ) with images
     --mask  mask of images. Optional. Default : '%2d.jpg'
     --loop  play video in the loop. Optionla. Default : 1
     --fps  input FPS ( frames per second ). Optional. Default : 5
-        Example: php image2video.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output 2.mp4
+    --bgcolor background HTML_COLOR. Optional. Used if png files with transparency are used for animation (see the mask option)
+    --bgimage background image. Optional. Used if png files with transparency are used for animation (see the mask option). If both bgcolor and bgimage are given - bgimage will be used
 
-        Example: php image2video.php --dir http://domain/path  --mask %2d.jpg --loop 3 --fps 12 --output 2.mp4
+
+	Example: php image2video.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output 2.mp4
+	Example: php image2video.php --dir http://domain/path  --mask %2d.jpg --loop 3 --fps 12 --bgcolor blue --output 2.mp4
+
 ```
 
 ### img2gif
 ```
         Script create gif  from banch of images.
-        Usage: php img2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10]
-        where:
+	Usage: php img2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10] [{--bgcolor #000000}|{--bgimage /path/bgimage.jpg}]
+	where:
     --output  path to output file
     --dir  directory ( or url ) with images
     --mask  mask of images. Optional. Default : '%2d.jpg'
     --loop  play video in the loop. Optionla. Default : 1
     --fps  input FPS ( frames per second ). Optional. Default : 5
-        Example: php img2gif.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output output.gif
+    --bgcolor background HTML_COLOR. Optional. Used if png files with transparency are used for animation (see the mask option)
+    --bgimage background image. Optional. Used if png files with transparency are used for animation (see the mask option). If both bgcolor and bgimage are given - bgimage will be used
 
-        Example: php img2gif.php --dir http://domain/path --mask %2d.jpg --loop 3 --fps 5 --output output.gif
+
+	Example: php img2gif.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output output.gif
+	Example: php img2gif.php --dir http://domain/path --mask %2d.png --loop 3 --fps 5 --bgcolor blue --output output.gif
+
+
 ```
 
 
@@ -106,10 +116,9 @@ sudo apt-get install -y ffmpeg php
 
 ### header_footer_horizontal_image2gif
 ```
-        Script create gif  from banch of images  with header and footer.
-        Usage: php header_footer_horizontal_image2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10] [--hea
-der /path/header.png] [--footer /path/footer.png]
-        where:
+        Script create gif from banch of images with header and footer.
+	Usage: php header_footer_horizontal_image2gif.php --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10] [--header /path/header.png] [--footer /path/footer.png] [{--bgcolor #000000}|{--bgimage /path/bgimage.jpg}]
+	where:
     --output  path to output file
     --dir  directory ( or url ) with images
     --mask  mask of images. Optional. Default : '%2d.jpg'
@@ -117,10 +126,12 @@ der /path/header.png] [--footer /path/footer.png]
     --fps  input FPS ( frames per second ). Optional. Default : 5
     --header  path ( or url ) of  header image. Optional
     --footer  path ( or url ) of footer image. Optional
-        Example: php header_footer_horizontal_image2gif.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output output.gif
+    --bgcolor background HTML_COLOR. Optional. Used if png files with transparency are used for animation (see the mask option)
+    --bgimage background image. Optional. Used if png files with transparency are used for animation (see the mask option). If both bgcolor and bgimage are given - bgimage will be used
+        
+	Example: php header_footer_horizontal_image2gif.php --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output output.gif
 
-        Example: php header_footer_horizontal_image2gif.php --header http://domain/header.png  --dir http://domain/path --mask %2d.jpg --loop 3 --fps 5
- --output output.gif
+	Example: php header_footer_horizontal_image2gif.php --header http://domain/header.png  --dir http://domain/path --mask %2d.jpg --loop 3 --fps 5 --bgcolor blue --output output.gif
 
 ```
 
@@ -289,6 +300,20 @@ Script mix one or two audio streams ( options --audio --speech ) and concat with
     php watermark.php --video VIDEO.mp4 --output overlay.mp4 --image logo.png
     php watermark.php --video green1.MOV --output 1.mp4 --image logo.png --alignment bottom_left --imageV 0.2 --marginH 0.01    
 ```    
+
+### intro_outro_videos
+```
+    Script stitch main video with intro and outro files
+	Usage: php intro_outro_videos.php --video /path/video.mp4 --output /path/output.mp4  [--intro /path/intro.mp4] [--outro /path/outro.mp4] [--fadeDuration 0.5]
+	where:
+  --video  path to main video file
+  --output  path to output file
+  --intro  path to intro video file, Please define one of intro or outro or both
+  --outro  path to outro video file, Please define one of intro or outro or both
+  --fadeDuration  duration of fade in the beginning and int the of intro/video/outro files. Optional. Default 0.5
+  
+  Example: php intro_outro_videos.php -video /path/video.mp4 --output /path/output.mp4  --intro /path/intro.mp4 --outro /path/outro.mp4 --fadeDuration 0.5
+```
 
 
 ##  Bugs

@@ -9,6 +9,8 @@ $longopts = array(
     "loop:",
     "fps:",
     "output:",
+    "bgcolor:",
+    "bgimage:",    
 );
 $options = getopt($shortopts, $longopts);
 $dir = isset($options['dir']) ? $options['dir'] : false;
@@ -16,6 +18,8 @@ $mask = isset($options['mask']) ? $options['mask'] : "%2d.jpg";
 $loop = isset($options['loop']) ? $options['loop'] : 1;
 $fps = isset($options['fps']) ? $options['fps'] : 5;
 $output = isset($options['output']) ? $options['output'] : false;
+$bgcolor = isset($options['bgcolor']) ? $options['bgcolor'] : "black";
+$bgimage = isset($options['bgimage']) ? $options['bgimage'] : false;
 
 if (empty($dir) ) {
     help("Do not set option --dir ");
@@ -38,7 +42,7 @@ if (strtolower( pathinfo($output, PATHINFO_EXTENSION)) !="gif") {
 $processing = new Processing();
 
 $processing->writeToLog( "Info: Script started");
-$cmd=$processing->prepareImageToVideo( $dir, $mask, $fps, $loop, $output);
+$cmd=$processing->prepareImagesToGif( $dir, $mask, $fps, $loop, $output, $bgcolor, $bgimage);
 
 $processing->writeToLog( "Info: prepared ffmpeg command : $cmd");
 if( !$processing->doExec($cmd) ) {
@@ -56,15 +60,19 @@ function help($msg)
     $message =
         "$msg
         Script create gif  from banch of images.
-	Usage: php $script --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10]  
+	Usage: php $script --dir /path/images --output /path/output.gif [--mask img%3d.png] [--loop 2] [--fps 10] [{--bgcolor #000000}|{--bgimage /path/bgimage.jpg}]
 	where:
     --output  path to output file
     --dir  directory ( or url ) with images
     --mask  mask of images. Optional. Default : '%2d.jpg'
     --loop  play video in the loop. Optionla. Default : 1
     --fps  input FPS ( frames per second ). Optional. Default : 5
+    --bgcolor background HTML_COLOR. Optional. Used if png files with transparency are used for animation (see the mask option)
+    --bgimage background image. Optional. Used if png files with transparency are used for animation (see the mask option). If both bgcolor and bgimage are given - bgimage will be used
+
+
 	Example: php $script --dir ./img --mask %2d.jpg --loop 3 --fps 12 --output output.gif\n
-	Example: php $script --dir http://domain/path --mask %2d.jpg --loop 3 --fps 5 --output output.gif\n";
+	Example: php $script --dir http://domain/path --mask %2d.png --loop 3 --fps 5 --bgcolor blue --output output.gif\n";
     $stderr = fopen('php://stderr', 'w');
     fwrite($stderr, "$date   $message" . PHP_EOL);
     fclose($stderr);
@@ -124,18 +132,30 @@ class Processing
         return ($out);
     }
 
-    public function prepareImageToVideo( $dir, $mask, $fps, $loop, $output) {
+    public function prepareImagesToGif( $dir, $mask, $fps, $loop, $output, $bgcolor='black', $bgimage=null) {
       if( intval( $loop>1 ) ) {
         $loopOption="-stream_loop ".intval( $loop -1 );
       }
+      $bgInput="";
+      $bgFilter="color=s=16x16:color=$bgcolor:r=$fps [bg];";
+      if(!empty($bgimage) ) {
+        $bgInput="-framerate $fps -loop 1 -i $bgimage";
+        $bgFilter="[1:v] null [bg];";          
+      }      
       $cmd=join( " ",array(
         $this->ffmpeg,
         "-y  -probesize 100M -analyzeduration 50M",
         "-loglevel ".$this->ffmpegLogLevel,
         //$loopOption,
-        "-r $fps",
+        "-framerate $fps",
         "-i \"$dir/$mask\"",
-        "-vf \"scale=w=iw:h=-2,setsar=1,fps=$fps,split[x1][x2];[x1]palettegen[p];[x2][p]paletteuse\""    ,
+        $bgInput,
+        "-filter_complex \"" ,
+        "scale=w=iw:h=-2,scale=w=-2:h=ih [v0];",
+        $bgFilter,
+        "[bg][v0] scale2ref [bg-out][v0-out];",        
+        "[bg-out][v0-out] overlay=shortest=1, setsar=1,",
+        "fps=$fps,split[x1][x2];[x1]palettegen[p];[x2][p]paletteuse\"" ,
         "-an",        
         "-loop -1",
         "\"$output\"",        

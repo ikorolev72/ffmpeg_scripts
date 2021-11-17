@@ -15,6 +15,7 @@ __pycache__/*
 lib/__pycache__/*
 tmp/*
 img/*
+img2/*
 log/*
 output/*
 html/media/*
