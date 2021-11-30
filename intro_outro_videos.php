@@ -16,7 +16,6 @@ $intro = isset($options['intro']) ? $options['intro'] : false;
 $outro = isset($options['outro']) ? $options['outro'] : false;
 $fadeDuration = isset($options['fadeDuration']) ? $options['fadeDuration'] : 0.5;
 
-
 if (empty($video)) {
     help("Do not set option --video ");
     exit(1);
@@ -29,7 +28,6 @@ if (empty($intro) and empty($outro)) {
     help("Do not set one or both options --intro / --outro");
     exit(1);
 }
-
 
 //$fadeDuration = 0.5;
 $processing = new Processing();
@@ -49,7 +47,10 @@ if ($fps > 60) {
 // if file haven't audio stream
 $audioFilter = "[0:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($duration - $fadeDuration) . ":duration=$fadeDuration [a_video];";
 if (empty($audioInfo['streams'][0]['codec_name'])) {
-    $audioFilter = "anullsrc=r=48000:cl=stereo:d=$duration [a_video];";
+    //$nb_samples = round(48000 * $duration);
+    //$audioFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_video];";
+    //$audioFilter = "anullsrc=r=48000:cl=stereo:d=$duration [a_video];";
+    $audioFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$duration [a_video];";
 }
 
 if ($intro and !$outro) {
@@ -59,7 +60,10 @@ if ($intro and !$outro) {
         $introAudioInfo = $processing->getAudioInfo($intro);
         $audioIntroFilter = "[1:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($introDuration - $fadeDuration) . ":duration=$fadeDuration [a_intro];";
         if (empty($introAudioInfo['streams'][0]['codec_name'])) {
-            $audioIntroFilter = "anullsrc=r=48000:cl=stereo:d=$introDuration [a_intro];";
+            //$nb_samples = round(48000 * $introDuration);
+            //$audioIntroFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_intro];";
+            //$audioIntroFilter = "anullsrc=r=48000:cl=stereo:d=$introDuration [a_intro];";
+            $audioIntroFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$introDuration [a_intro];";
         }
     }
 
@@ -68,7 +72,10 @@ if ($intro and !$outro) {
         $outroAudioInfo = $processing->getAudioInfo($outro);
         $audioOutroFilter = "[1:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($outroDuration - $fadeDuration) . ":duration=$fadeDuration [a_outro];";
         if (empty($outroAudioInfo['streams'][0]['codec_name'])) {
-            $audioOutroFilter = "anullsrc=r=48000:cl=stereo:d=$outroDuration [a_outro];";
+            //$nb_samples = round(48000 * $outroDuration);
+            //$audioOutroFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_outro];";
+            //$audioOutroFilter = "anullsrc=r=48000:cl=stereo:d=$outroDuration [a_outro];";
+            $audioOutroFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$outroDuration [a_outro];";
         }
     }
 
@@ -101,7 +108,10 @@ if ($intro and $outro) {
         $introAudioInfo = $processing->getAudioInfo($intro);
         $audioIntroFilter = "[1:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($introDuration - $fadeDuration) . ":duration=$fadeDuration [a_intro];";
         if (empty($introAudioInfo['streams'][0]['codec_name'])) {
-            $audioIntroFilter = "anullsrc=r=48000:cl=stereo:d=$introDuration [a_intro];";
+            //$nb_samples = round(48000 * $introDuration);
+            //$audioIntroFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_intro];";
+            //$audioIntroFilter = "anullsrc=r=48000:cl=stereo:d=$introDuration [a_intro];";
+            $audioIntroFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$introDuration [a_intro];";
         }
     }
 
@@ -110,7 +120,10 @@ if ($intro and $outro) {
         $outroAudioInfo = $processing->getAudioInfo($outro);
         $audioOutroFilter = "[2:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($outroDuration - $fadeDuration) . ":duration=$fadeDuration [a_outro];";
         if (empty($outroAudioInfo['streams'][0]['codec_name'])) {
-          $audioOutroFilter = "anullsrc=r=48000:cl=stereo:d=$outroDuration [a_outro];";
+            //$nb_samples = round(48000 * $outroDuration);
+            //$audioOutroFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_outro];";
+            //$audioOutroFilter = "anullsrc=r=48000:cl=stereo:d=$outroDuration [a_outro];";
+            $audioOutroFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$outroDuration [a_outro];";
         }
     }
 
@@ -146,7 +159,10 @@ if (!$intro and $outro) {
         $introAudioInfo = $processing->getAudioInfo($intro);
         $audioIntroFilter = "[1:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($introDuration - $fadeDuration) . ":duration=$fadeDuration [a_intro];";
         if (empty($introAudioInfo['streams'][0]['codec_name'])) {
-            $audioIntroFilter = "anullsrc=r=48000:cl=stereo:d=$introDuration [a_intro];";
+            //$nb_samples = round(48000 * $introDuration);
+            //$audioIntroFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_intro];";
+            //$audioIntroFilter = "anullsrc=r=48000:cl=stereo:d=$introDuration [a_intro];";
+            $audioIntroFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$introDuration [a_intro];";
         }
     }
 
@@ -155,7 +171,10 @@ if (!$intro and $outro) {
         $outroAudioInfo = $processing->getAudioInfo($outro);
         $audioOutroFilter = "[1:a] afade=in:st=0:duration=$fadeDuration, afade=out:st=" . ($outroDuration - $fadeDuration) . ":duration=$fadeDuration [a_outro];";
         if (empty($outroAudioInfo['streams'][0]['codec_name'])) {
-            $audioOutroFilter = "anullsrc=r=48000:cl=stereo:d=$outroDuration [a_outro];";
+            //$nb_samples = round(48000 * $outroDuration);
+            //$audioOutroFilter = "anullsrc=r=48000:cl=stereo:nb_samples=$nb_samples [a_outro];";
+            //$audioOutroFilter = "anullsrc=r=48000:cl=stereo:d=$outroDuration [a_outro];";
+            $audioOutroFilter = "aevalsrc=0|0:s=48000:c=stereo:d=$outroDuration [a_outro];";
         }
     }
 
@@ -206,7 +225,7 @@ function help($msg)
   --intro  path to intro video file, Please define one of intro or outro or both
   --outro  path to outro video file, Please define one of intro or outro or both
   --fadeDuration  duration of fade in the beginning and int the of intro/video/outro files. Optional. Default 0.5
-  
+
   Example: php $script -video /path/video.mp4 --output /path/output.mp4  --intro /path/intro.mp4 --outro /path/outro.mp4 --fadeDuration 0.5\n
   ";
     $stderr = fopen('php://stderr', 'w');
@@ -277,7 +296,6 @@ class Processing
         $out = json_decode($json, true);
         return ($out);
     }
-
 
     /**
      * doExec

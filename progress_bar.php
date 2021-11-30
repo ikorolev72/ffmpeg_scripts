@@ -66,7 +66,7 @@ $fps = $videoInfo['streams'][0]['r_frame_rate'];
 $fps = eval( "return round($fps,3);") ;
 
     $cmd = join(" ", array(
-        "ffmpeg -y  -probesize 100M -analyzeduration 50M",
+        "ffmpeg4.4 -y  -probesize 100M -analyzeduration 50M",
         "-i \"$video\" -ss 0 -t $duration",
         "-filter_complex \"",
         "color=c=$bgcolor:s=${bgWidth}x${bgHeight}:duration=${duration} [bg];", 

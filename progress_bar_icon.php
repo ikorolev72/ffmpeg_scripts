@@ -105,7 +105,7 @@ if( !$iconwidth ) {
 $iconwidth=round( $iconwidth*$smooth );
 
     $cmd = join(" ", array(
-        "ffmpeg -y  -probesize 100M -analyzeduration 50M",
+        "ffmpeg4.4 -y  -probesize 100M -analyzeduration 50M",
         "-i \"$video\" -ss 0 -t $duration",
         "-i \"$icon\" -ss 0 -t $duration",
         "-filter_complex \"",
