@@ -97,7 +97,9 @@ $bgHeight = round( $videoInfo['streams'][0]['height']*$barBgHeightPart*$smooth )
 
 
 $fps = $videoInfo['streams'][0]['r_frame_rate'];
-$fps = eval( "return round($fps,3);") ;
+//$fps = eval( "return round($fps,3);") ;
+$fps = $fps ? eval( "return round($fps,3);") : 30 ;
+
 
 if( !$iconwidth ) {
     $iconwidth=round( $videoInfo['streams'][0]['width']*0.1 );
